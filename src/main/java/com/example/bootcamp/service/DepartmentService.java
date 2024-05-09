@@ -31,16 +31,21 @@ public class DepartmentService implements IDepartmentService{
     @Override
     public Department findDepartmentById(Integer id) {
         Optional<Department> department= departmentRepository.findById(id);
-        return department.orElseThrow(() -> new RuntimeException("No data found"));
+        return department.orElseThrow(() -> new RuntimeException("Department not found"));
     }
 
     @Override
     public Department updateDepartment(Integer id, Department department) {
-        return null;
+        Optional<Department> departmentToBeUpdated= departmentRepository.findById(id);
+        departmentToBeUpdated.orElseThrow(()->new RuntimeException("Department not found"));
+        Department departmentUpdated= departmentRepository.save(department);
+        return departmentUpdated;
     }
 
     @Override
     public void deleteDepartment(Integer id) {
-
+        Optional<Department> department= departmentRepository.findById(id);
+        department.orElseThrow(()->new RuntimeException("Department not found"));
+        departmentRepository.deleteById(id);
     }
 }
