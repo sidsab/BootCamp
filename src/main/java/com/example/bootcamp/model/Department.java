@@ -1,7 +1,7 @@
 package com.example.bootcamp.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -9,8 +9,11 @@ import java.util.Set;
 
 @Entity
 @Data
-public class
-Department {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
+public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_Generator")
     @SequenceGenerator(name = "sequence_Generator", sequenceName = "department_Seq", allocationSize = 1)
@@ -21,7 +24,7 @@ Department {
     private String name;
 
     @Column(name = "read_only")
-    private Boolean read_only;
+    private Boolean readOnly;
 
     @Column(name = "mandatory")
     private Boolean mandatory;
