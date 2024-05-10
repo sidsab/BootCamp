@@ -12,17 +12,21 @@ import java.util.Set;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer Id;
-    private String Name;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_Generator")
+    @SequenceGenerator(name = "sequence_Generator", sequenceName = "employee_Seq", allocationSize = 1)
+    @Column(name = "id")
+    private Integer id;
 
-    @ManyToMany()
+    @Column(name = "name")
+    private String name;
+
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinTable(
             name = "map_employee_department",
             joinColumns = @JoinColumn(name = "id_employee"),
             inverseJoinColumns = @JoinColumn(name = "id_department")
     )
-    private Set<Department> Departments;
+    private Set<Department> departments;
 
 
 

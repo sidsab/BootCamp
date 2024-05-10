@@ -12,30 +12,26 @@ import java.util.Set;
 public class
 Department {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_Generator")
+    @SequenceGenerator(name = "sequence_Generator", sequenceName = "department_Seq", allocationSize = 1)
+    @Column(name = "id")
     private Integer id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "read_only")
     private Boolean read_only;
+
+    @Column(name = "mandatory")
     private Boolean mandatory;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany()
     @JoinTable(
             name = "map_employee_department",
             joinColumns = @JoinColumn(name = "id_department"),
             inverseJoinColumns = @JoinColumn(name = "id_employee")
     )
-    private Set<Employee> Employees;
+    private Set<Employee> employees;
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Department that = (Department) o;
-//        return Objects.equals(id, that.id);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id);
-//    }
 }
