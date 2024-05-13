@@ -14,11 +14,6 @@ public class BootcampApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(BootcampApplication.class, args);
-        Scanner myScanner=new Scanner(System.in);
-        String inp=myScanner.nextLine();
-//        DepartmentRepository departmentRepository= new DepartmentRepository();
-//        DepartmentService departmentService= new DepartmentService();
-//        DepartmentController departmentController=new DepartmentController();
     }
 
 }

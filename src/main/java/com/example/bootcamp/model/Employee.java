@@ -1,7 +1,7 @@
 package com.example.bootcamp.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +9,9 @@ import java.util.Set;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Employee {
 
     @Id
@@ -27,7 +30,4 @@ public class Employee {
             inverseJoinColumns = @JoinColumn(name = "id_department")
     )
     private Set<Department> departments;
-
-
-
 }
