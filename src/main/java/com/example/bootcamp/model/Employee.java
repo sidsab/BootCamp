@@ -23,7 +23,7 @@ public class Employee {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(
             name = "map_employee_department",
             joinColumns = @JoinColumn(name = "id_employee"),

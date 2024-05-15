@@ -73,7 +73,7 @@ public class EmployeeServiceImplTest {
     }
 
     @Test
-    public void createEmployeeTest_newEmployee_noConflict_success()
+    public void testCreateEmployee_newEmployee_noConflict_success()
     {
         Set<Department> mandatoryDepartmentList= new HashSet<Department>();
         mandatoryDepartmentList.add(departmentMandatory);
@@ -85,14 +85,14 @@ public class EmployeeServiceImplTest {
     }
 
     @Test
-    public void deleteEmployeeTest_existingEmployee_noConflict_success()
+    public void testDeleteEmployee_existingEmployee_success()
     {
         ref.deleteEmployee(EMPLOYEE_ID_EXISTING_ONE);
         verify(mockEmployeeRepository,times(1)).deleteById(EMPLOYEE_ID_EXISTING_ONE);
     }
 
     @Test
-    public void deleteEmployeeTest_nonExistingEmployee_conflict_employeeNotFoundException()
+    public void testDeleteEmployee_nonExistingEmployee_employeeNotFoundException()
     {
         assertThrows(EmployeeNotFoundException.class,()->{
             ref.deleteEmployee(employeeNew.getId());
@@ -100,7 +100,7 @@ public class EmployeeServiceImplTest {
     }
 
     @Test
-    public void findEmployeeByIdTest_existingEmployee_noConflict_success()
+    public void testFindEmployeeById_existingEmployee_success()
     {
         Employee employee= ref.findEmployeeById(employeeExisting.getId());
         assertThat(employee).isNotNull();
@@ -108,7 +108,7 @@ public class EmployeeServiceImplTest {
     }
 
     @Test
-    public void findEmployeeByIdTest_nonExistingEmployee_conflict_employeeNotFoundException()
+    public void testFindEmployeeById_nonExistingEmployee_employeeNotFoundException()
     {
         assertThrows(EmployeeNotFoundException.class,()->{
             ref.findEmployeeById(employeeNew.getId());
@@ -116,7 +116,7 @@ public class EmployeeServiceImplTest {
     }
 
     @Test
-    public void updateEmployeeTest_existingEmployee_noConflict_success()
+    public void testUpdateEmployee_existingEmployee_success()
     {
         employeeExisting.setName(EMPLOYEE_NAME_NEW);
         Employee employeeUpdated= ref.updateEmployee(EMPLOYEE_ID_EXISTING_ONE, employeeExisting);
@@ -124,7 +124,7 @@ public class EmployeeServiceImplTest {
     }
 
     @Test
-    public void updateEmployeeTest_nonExistingEmployee_conflict_employeeNotFoundException()
+    public void testUpdateEmployee_nonExistingEmployee_employeeNotFoundException()
     {
         assertThrows(EmployeeNotFoundException.class,()->{
             ref.findEmployeeById(employeeNew.getId());
@@ -132,7 +132,7 @@ public class EmployeeServiceImplTest {
     }
 
     @Test
-    public void getAllEmployeesTest_noConflict_success()
+    public void testGetAllEmployees_employeeList_success()
     {
         List<Employee> employeeList = List.of(employeeExisting, employeeExistingTwo);
         when(mockEmployeeRepository.findAll()).thenReturn(employeeList);

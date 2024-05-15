@@ -59,21 +59,21 @@ public class DepartmentServiceImplTest {
     }
 
     @Test
-    public void createDepartmentTest_newDepartment_noConflicts_success() {
+    public void testCreateDepartment_newDepartment_success() {
         Department departmentSaved = concreteRef.createDepartment(departmentNew);
         assertThat(departmentSaved).isNotNull();
         assertEquals(departmentSaved, departmentNew);
     }
 
     @Test
-    public void findDepartmentByIdTest_existingDepartment_noConflicts_success()
+    public void testFindDepartmentById_existingDepartment_success()
     {
         Department department= ref.findDepartmentById(departmentExisting.getId());
         assertThat(department).isNotNull();
     }
 
     @Test
-    public void findDepartmentByIdTest_nonExistingDepartment_conflict_departmentReadOnlyException()
+    public void testFindDepartmentById_nonExistingDepartment_departmentReadOnlyException()
     {
         assertThrows(DepartmentNotFoundException.class,()->{
             ref.findDepartmentById(departmentNew.getId());
@@ -82,7 +82,7 @@ public class DepartmentServiceImplTest {
 
 
     @Test
-    public void deleteDepartmentTest_nonReadOnlyDepartment_noConflict_success()
+    public void testDeleteDepartment_nonReadOnlyDepartment_success()
     {
         departmentExisting.setReadOnly(false);
         ref.deleteDepartment(departmentExisting.getId());
@@ -90,7 +90,7 @@ public class DepartmentServiceImplTest {
     }
 
     @Test
-    public void deleteDepartmentTest_readOnlyDepartment_conflict_departmentReadOnlyException()
+    public void testDeleteDepartment_readOnlyDepartment_departmentReadOnlyException()
     {
         assertThrows(DepartmentIsReadOnlyException.class,()->{
             ref.deleteDepartment(departmentReadOnly.getId());
@@ -98,7 +98,7 @@ public class DepartmentServiceImplTest {
     }
 
     @Test
-    public void deleteDepartmentTest_nonExistingDepartment_conflict_departmentNotFoundException()
+    public void testDeleteDepartment_nonExistingDepartment_departmentNotFoundException()
     {
         assertThrows(DepartmentNotFoundException.class,()->{
             ref.deleteDepartment(departmentNew.getId());
@@ -106,7 +106,7 @@ public class DepartmentServiceImplTest {
     }
 
     @Test
-    public void updateDepartmentTest_nonReadOnlyDepartment_noConflict_success()
+    public void testUpdateDepartment_nonReadOnlyDepartment_success()
     {
         departmentExisting.setReadOnly(false);
         departmentExisting.setName(DEPARTMENT_NAME_NEW);
@@ -115,7 +115,7 @@ public class DepartmentServiceImplTest {
     }
 
     @Test
-    public void updateDepartmentTest_readOnlyDepartment_conflict_departmentReadOnlyException()
+    public void testUpdateDepartment_readOnlyDepartment_departmentReadOnlyException()
     {
         assertThrows(DepartmentIsReadOnlyException.class,()->{
             ref.updateDepartment(departmentExisting.getId(),departmentExisting);
@@ -123,7 +123,7 @@ public class DepartmentServiceImplTest {
     }
 
     @Test
-    public void updateDepartmentTest_nonExistingDepartment_conflict_departmentNotFoundException()
+    public void testUpdateDepartment_nonExistingDepartment_departmentNotFoundException()
     {
         assertThrows(DepartmentNotFoundException.class,()->{
             ref.updateDepartment(departmentNew.getId(),departmentNew);
@@ -131,7 +131,7 @@ public class DepartmentServiceImplTest {
     }
 
     @Test
-    public void getAllDepartmentsTest() {
+    public void testGetAllDepartments_departmentList_success() {
         List<Department> departmentList = List.of(department02, department03);
         when(mockDepartmentRepository.findAll()).thenReturn(departmentList);
 
